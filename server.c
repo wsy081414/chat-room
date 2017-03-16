@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
                 {
                     const char *msg = "Too many users!!!\n";
                     printf("%s",msg);
-                    write(sock, msg, sizeof(msg) );
+                    write(sock, msg, sizeof(msg)-1);
                     close(sock);
                     continue;
                 }
@@ -215,7 +215,7 @@ int main(int argc, char *argv[])
                     continue;
                 }
                 ret = write(sock,users[sock].write_buf,\
-                            BUF_SIZE-1);
+                            sizeof(users[sock].write_buf)-1);
                 users[sock].write_buf = NULL;
                 //写完以后重新注册fds[i]的可读事件
                 fds[i].events |= ~POLLOUT;
